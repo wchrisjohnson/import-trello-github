@@ -4,6 +4,8 @@ import json
 import logging
 import sys
 
+from time import sleep
+
 import py.path
 import requests
 
@@ -226,12 +228,17 @@ class Card(object):
             self.card_data['desc']
         )
         if self.card_data['closed'] == True:
-            state['state'] = 'closed' 
+            logging.debug("********** CLOSED ISSUE FOUND **********")
+            state['state'] = 'closed'
+
+        logging.debug("********** BEFORE STATE BUILD: {0}".format(state))
 
         state = dict(
             list(state.items()) +
             list(self.labels_mapper.args_for(self.card_data).items())
         )
+
+        logging.debug("********** AFTER STATE BUILD: {0}".format(state))
 
         logging.debug("making request to {0} with args {1}".format(req_url, state))
 
@@ -245,6 +252,23 @@ class Card(object):
 
             data = req.json()
             state['url'] = data['url']
+
+            # sleep for a second to avoid the error:
+            # "You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.""
+            sleep(1)
+
+            # close issue (ugly but works)
+            logging.debug("********** PREPARING TO PATCH: {0}".format(state))
+            if 'state' in state and state['state']=='closed':
+                logging.debug("********** PATCHING CLOSED ISSUE: {0}".format(data['url']))
+                req_fn = requests.patch
+                # PATCH /repos/:owner/:repo/issues/:number
+                # https://api.github.com/repos/heroku/chrisj-trello-import/issues/48
+                req_url = data['url']
+                closed_state = {'state': 'closed'}
+                req = gh_request(
+                    req_url, self.args, data=closed_state, req_fn=req_fn,
+                )
 
             if self.state_file:
                 with self.state_file.open('w') as handle:
@@ -368,10 +392,14 @@ def main():
             for list in trello_data['lists']
             if list['id'] == card_data["idList"]
         ))
-        
+
         if not labels_mapper.lists.get(list_name):
             logging.warn("List {0}, not defined, skipping card".format(list_name))
             continue
+
+        # sleep for a second to avoid the error:
+        # "You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.""
+        sleep(1)
 
         ok = card.save(dryrun)
         if not ok:

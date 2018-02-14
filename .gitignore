@@ -2,3 +2,4 @@
 *.json
 
 state/
+.venv
