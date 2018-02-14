@@ -253,10 +253,6 @@ class Card(object):
             data = req.json()
             state['url'] = data['url']
 
-            # sleep for a second to avoid the error:
-            # "You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.""
-            sleep(1)
-
             # close issue (ugly but works)
             logging.debug("********** PREPARING TO PATCH: {0}".format(state))
             if 'state' in state and state['state']=='closed':
@@ -292,6 +288,10 @@ def gh_request(path, args, data=None, req_fn=None):
 
     else:
         req_url = path
+
+    # sleep for a second to avoid the error:
+    # "You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.""
+    sleep(1)
 
     req = req_fn(req_url,
                  auth=(args.github_user, args.github_password),
@@ -396,10 +396,6 @@ def main():
         if not labels_mapper.lists.get(list_name):
             logging.warn("List {0}, not defined, skipping card".format(list_name))
             continue
-
-        # sleep for a second to avoid the error:
-        # "You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.""
-        sleep(1)
 
         ok = card.save(dryrun)
         if not ok:
