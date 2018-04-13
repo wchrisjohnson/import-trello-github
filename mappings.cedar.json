@@ -1,0 +1,34 @@
+{
+    "labels": {
+        "Epic": {"label": ["trello_import", "common_runtime", "Epic"] },
+        "Source:On-call": {"label": ["trello_import", "common_runtime", "Source:On-call"] },
+        "Source:Support": {"label": ["trello_import", "common_runtime", "Source:Support"] },
+        "Source:Remediation": {"label": ["trello_import", "common_runtime", "Source:Remediation"] },
+        "Source:Product": {"label": ["trello_import", "common_runtime", "Source:Product"] },
+        "Squad:Domains": {"label": ["trello_import", "common_runtime", "Squad:Domains"] },
+        "Squad:P28D": {"label": ["trello_import", "common_runtime", "Squad:P28D"] },
+        "Squad:Spacetime": {"label": ["trello_import", "common_runtime", "Squad:Spacetime"] },
+        "Security": {"label": ["trello_import", "common_runtime", "Security"] },
+        "Pipelines": {"label": ["trello_import", "common_runtime", "Pipelines"] },
+        "Project": {"label": ["trello_import", "common_runtime", "Project"] },
+        "Playbook": {"label": ["trello_import", "common_runtime", "Playbook"] }
+    },
+    "lists": {
+        "Read Me": { "state": "open", "label": ["trello_import", "common_runtime", "Read Me"] },
+        "Inbox": { "state": "open", "label": ["trello_import", "common_runtime", "Inbox"] },
+        "Needs Definition": { "state": "open", "label": ["trello_import", "common_runtime", "Needs Definition"] },
+        "Prioritized": { "state": "open", "label": ["trello_import", "common_runtime", "Prioritized"] },
+        "Engineers": { "state": "open", "label": ["trello_import", "common_runtime", "Engineers"] },
+        "Delegated to Squads": { "state": "open", "label": ["trello_import", "common_runtime", "Delegated to Squads"] },
+        "Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "Icebox"] },
+        "Hermes Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "Hermes Icebox"] },
+        "ACM Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "ACM Icebox"] },
+        "Security Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "Security Icebox"] },
+        "On-Call Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "On-Call Icebox"] },
+        "Logplex Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "Logplex Icebox"] },
+        "Runtimes Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "Runtime Icebox"] },
+        "Orchestration Icebox": { "state": "open", "label": ["trello_import", "common_runtime", "Orchestration Icebox"] },
+        "Archive": { "state": "closed", "label": ["trello_import", "common_runtime", "Archive"] },
+        "Archived": { "state": "closed", "label": ["trello_import", "common_runtime", "Archived"] }
+    }
+}
