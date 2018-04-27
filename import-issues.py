@@ -229,7 +229,9 @@ class Card(object):
         )
         if self.card_data['closed'] == True:
             logging.debug("********** CLOSED ISSUE FOUND **********")
-            state['state'] = 'closed'
+            # state['state'] = 'closed'
+            # skip all closed/archived cards
+            return True
 
         logging.debug("********** BEFORE STATE BUILD: {0}".format(state))
 
@@ -254,17 +256,17 @@ class Card(object):
             state['url'] = data['url']
 
             # close issue (ugly but works)
-            logging.debug("********** PREPARING TO PATCH: {0}".format(state))
-            if 'state' in state and state['state']=='closed':
-                logging.debug("********** PATCHING CLOSED ISSUE: {0}".format(data['url']))
-                req_fn = requests.patch
-                # PATCH /repos/:owner/:repo/issues/:number
-                # https://api.github.com/repos/heroku/chrisj-trello-import/issues/48
-                req_url = data['url']
-                closed_state = {'state': 'closed'}
-                req = gh_request(
-                    req_url, self.args, data=closed_state, req_fn=req_fn,
-                )
+            # logging.debug("********** PREPARING TO PATCH: {0}".format(state))
+            # if 'state' in state and state['state']=='closed':
+            #     logging.debug("********** PATCHING CLOSED ISSUE: {0}".format(data['url']))
+            #     req_fn = requests.patch
+            #     # PATCH /repos/:owner/:repo/issues/:number
+            #     # https://api.github.com/repos/heroku/chrisj-trello-import/issues/48
+            #     req_url = data['url']
+            #     closed_state = {'state': 'closed'}
+            #     req = gh_request(
+            #         req_url, self.args, data=closed_state, req_fn=req_fn,
+            #     )
 
             if self.state_file:
                 with self.state_file.open('w') as handle:
