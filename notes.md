@@ -58,3 +58,5 @@ python3 ./import-issues.py --loglevel DEBUG \
                    ./trello.cedar.json heroku chrisj-trello-import \
                    wchrisjohnson@gmail.com $TOKEN
 ```
+
+*Note: If you need to run the conversion while testing it out multiple times, it would be wise to `rm -rf` the state folder between runs to clean up after each run.*
